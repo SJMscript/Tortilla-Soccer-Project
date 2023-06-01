@@ -8,7 +8,7 @@ const playerSchema = new Schema(
         unique: true,
         trim: true
     },
-    CurrentTeam: {
+    currentTeam: {
         type: String,
         required: true,
         // enum: ["Real Madrid", "Barcelona", "Valencia"]
