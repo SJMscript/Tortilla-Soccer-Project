@@ -3,79 +3,194 @@ const router = require("express").Router();
 const Player = require("../models/Player.model");
 const Comment = require("../models/Comment.model");
 const User = require("../models/User.model");
-const isAuthenticated = require("../middlewares/isAuthenticated")
-let playersArray = require("../utils/players.json")
+const isAuthenticated = require("../middlewares/isAuthenticated");
+let playersArray = require("../utils/players.json");
+const jwt = require("jsonwebtoken")
 
 //* GET "/players" => render list of players
 router.get("/list", isAuthenticated, async (req, res, next) => {
-    try{
-        // Find and render all characters
-        const players = await Player.find();
-        console.log(players)
-      res.json(players);
-    } catch (err) {
-      console.log(err);
-    }
-  });
+  try {
+    // Find and render all characters
+    const players = await Player.find();
+    console.log(players);
+    res.json(players);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-  // GET "/players/new-player" => render form to create a new player:
+// GET "/players/new-player" => render form to create a new player:
 
-router.get("/new-player", isAuthenticated,  async (req, res, next) => {
-
-    try{
-        res.json("Aqui visualiza form para agregar")
-
-    } catch(e){
-        next(e);
-    }
-
-})
-
+router.get("/new-player", isAuthenticated, async (req, res, next) => {
+  try {
+    res.json("Aqui visualiza form para agregar");
+  } catch (e) {
+    next(e);
+  }
+});
 
 // POST "/players/new-player" => create a new player
 // Note the middleware (uploader function) as an argument for the router, using the "image" property.
 router.post("/new-player", async (req, res, next) => {
-    console.log("req body post new-player", req.body)
-    const {name, currentTeam, marketValue, age, image, skillfulLeg} = req.body;
+  console.log("req body post new-player", req.body);
+  const { name, currentTeam, marketValue, age, image, skillfulLeg } = req.body;
 
-    
-    //* Server validation:
-    // Check the fields are not empty (or that req.file is undefined):
-    if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image ) {
-        // If any field is empty, render the same page but with an error:
-        res.status(400).json({errorMesage: "All fields are mandatory"})
-        // We also need to stop the route:
-        return;
+  //* Server validation:
+  // Check the fields are not empty (or that req.file is undefined):
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image) {
+    // If any field is empty, render the same page but with an error:
+    res.status(400).json({ errorMesage: "All fields are mandatory" });
+    // We also need to stop the route:
+    return;
+  }
+
+  // Asynchronous validations:
+  try {
+    /* let lowercaseName = name.toLowerCase(); */
+    // Check if the player´s name already exists:
+    const foundPlayer = await Player.findOne();
+    if (foundPlayer !== null) {
+      res.status(400).json({ errorMesage: "Player already exists" });
+      return;
     }
 
-    // Asynchronous validations:
-    try {
-        /* let lowercaseName = name.toLowerCase(); */
-        // Check if the player´s name already exists:
-        const foundPlayer = await Player.findOne()
-        if (foundPlayer !== null) {
-            res.status(400).json({errorMesage: "Player already exists"})
-            return;
-        }
+    //* create a new character
+    Player.create({
+      name,
+      age,
+      currentTeam,
+      marketValue,
+      skillfulLeg,
+      image,
+    });
+    res.json("Player created successfully");
+  } catch (error) {
+    next(error);
+  }
+});
 
-       
-        
-        //* create a new character
-        Player.create({
-            name,
-            age,
+// GET "/players/:playerId/edit-player" => show form to update player details by its ID:
+router.get("/:playerId/edit-player", async (req, res, next) => {
+  try {
+    // Let's find the player by its id and render:
+    const singlePlayer = await Player.findById(req.params.playerId);
+    console.log(req.params.playerId);
+    res.json("edit form");
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT "/players/:playerId/edit-player" => update player details by its ID:
+router.put("/:playerId/edit-player", async (req, res, next) => {
+  const { name, currentTeam, marketValue, age, skillfulLeg, image } = req.body;
+    const { playerId } = req.params
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image) {
+    res.status(400).json({ errorMesage: "All fields are mandatory" });
+    return;
+  }
+
+  try{
+    const foundAndUpdate = await Player.findByIdAndUpdate(playerId, {
+        name,
+        age,
         currentTeam,
         marketValue,
         skillfulLeg,
-        image,
-        })
-        res.json("Player created successfully")
-        } catch (error) {
-            next(error)
-        }
+        image
+    })
+    console.log("player id", playerId)
+    res.json("Player updated")
+
+  } catch(err){
+    next(err);
+  }
+
 })
 
+//* GET "/player/:playerId/details" => Render specific player by ID: 
+router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
+    try {
+      // Find the character that matches the id sent by the params:
+      const singlePlayer = await Player.findById(req.params.playerId);
+
+      const payload = {
+        //! Poner roles (info) PREGUNTAR A JORGE
+    }
+
+      const authToken = jwt.sign(
+        payload,
+        process.env.TOKEN_SECRET,
+        { algorithm: "HS256", expiresIn: "1d"}
+    )
+        console.log(authToken)
+
+      console.log(req.params.playerId)
+      res.json( {singlePlayer: singlePlayer} )
 
 
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // POST "/characters/:charId/details" => Get info from comment text area and render the page with new comment:
+router.post("/:charId/details", (req, res, next) => {
+    // console.log(req.params.charId)
+    // console.log(req.body.comment);
+    // Create new comment with req.session.user._id as creator, req.body.comment as content and req.params.charId as character:
+    Comment.create({
+        creator: req.session.user._id,
+        content: req.body.comment,
+        character: req.params.charId
+    })
+    .then(() => {
+        //console.log("Comment created.")
+        res.redirect(`/characters/${req.params.charId}/details`)
+    })
+    .catch((err) => {
+        next(err)
+    })
+})
+
+// POST "characters/:commentId" => Get info from comment id, delete it and render character's page without it:
+router.post("/:commentId", (req, res, next) => {
+    // console.log(req.params.commentId)
+    Comment.findByIdAndDelete(req.params.commentId)
+    .then((singleComment) => {
+        console.log(singleComment.character)
+        res.redirect(`/characters/${singleComment.character}/details`)
+    })
+    .catch((err) => {
+        next(err)
+    })
+})
+
+// POST "players/:playerId/delete" => Delete specific player by its Id:
+router.post("/:playerId/delete", (req, res, next) => {
+    // console.log(req.params);
+    // Let's find the character by its Id and delete it:
+    Player.findByIdAndDelete(req.params.playerId)
+    .then(() => {
+        // console.log("User deleted!")
+        res.redirect("/characters")
+    })
+    .catch((err) => {
+        next(err)
+    })
+})
+
+//* DELETE "players/:playerId/delete" => delete a player by its Id
+router.delete("/:playerId", async (req, res, next) => {
+    try {
+      // Let's find the player by its Id and delete it:
+      await Player.findByIdAndDelete(req.params.playerId);
+      res.json("Player deleted!");
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  
 
 module.exports = router;
