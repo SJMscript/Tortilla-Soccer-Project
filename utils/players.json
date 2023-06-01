@@ -1,0 +1,221 @@
+[
+    {
+        "name": "Kepa Arrizabalaga Revuelta",
+        "currentTeam": "",
+        "marketValue": "",
+        "age": "",
+        "skillfulLeg": "",
+        "image": ""
+        
+    },
+    {
+        "name": "David Raya Martin",
+        "currentTeam": "",
+        "marketValue": "",
+        "age": "",
+        "skillfulLeg": "",
+        "image": ""
+        
+    },
+    {
+        "name": "Robert Lynch Sánchez",
+        "currentTeam": "",
+        "marketValue": "",
+        "age": "",
+        "skillfulLeg": "",
+        "image": ""
+        
+    },
+    {
+        "name": "José Luis Gayà Peña",
+        "currentTeam": "Valencia CF",
+        "marketValue": 35.000000,
+        "age": 28,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },
+    {
+        "name": "Daniel `Dani` Carvajal Ramos",
+        "currentTeam": "Real Madrid",
+        "marketValue": 15.000000,
+        "age": 31,
+        "skillfulLeg": "Derecha",
+        "image": ""
+        
+    },
+    {
+        "name": "Aymeric Laporte",
+        "currentTeam": "Manchester City",
+        "marketValue": 30.000000,
+        "age": 29,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },
+    {
+        "name": "Nacho Fernández Iglesias",
+        "currentTeam": "Real Madrid",
+        "marketValue": 6.000000,
+        "age": 33,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Iñigo Martínez Berridi",
+        "currentTeam": "Athletic Bilbao",
+        "marketValue": 18.000000,
+        "age": 32,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },    {
+        "name": "Alejandro Balde Martínez",
+        "currentTeam": "FC Barcelona",
+        "marketValue": 30.00000,
+        "age": 19,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },
+    {
+        "name": "Pedro Porro Sauceda",
+        "currentTeam": "Tottenham Hotspur",
+        "marketValue": 35.000000,
+        "age": 23,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Martín Zubimendi Ibáñez",
+        "currentTeam": "Real Sociedad",
+        "marketValue": 40.000000,
+        "age": 24,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },    {
+        "name": "David García Zubiría",
+        "currentTeam": "CA Osasuna",
+        "marketValue": 20.000000,
+        "age": 29,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Fabián Ruiz Peña",
+        "currentTeam": "Paris Saint-Germain",
+        "marketValue": 38.000000,
+        "age": 27,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },    {
+        "name": "Pablo `Gavi` Martín Páez Gavira",
+        "currentTeam": "FC Barcelona",
+        "marketValue": 90.000000,
+        "age": 18,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Mikel Merino Zazón",
+        "currentTeam": "Real Sociedad",
+        "marketValue": 50.000000,
+        "age": 26,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },    {
+        "name": "Daniel `Dani` Ceballos Fernández",
+        "currentTeam": "Real Madrid",
+        "marketValue": 12.000000,
+        "age": 26,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Rodrigo `Rodri` Hernández Cascante",
+        "currentTeam": "Manchester City",
+        "marketValue": 80.000000,
+        "age": 26,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },    {
+        "name": "Mikel Oyarzabal Ugarte",
+        "currentTeam": "Real Sociedad",
+        "marketValue": 50.000000,
+        "age": 26,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },    
+    {
+        "name": "Yéremy Jesús Pino Santos",
+        "currentTeam": "Villarreal CF",
+        "marketValue": 38.000000,
+        "age": 20,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Nicholas `Nico` Williams Arthuer",
+        "currentTeam": "Athletic Bilbao",
+        "marketValue": 25.000000,
+        "age": 20,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },    {
+        "name": "Borja Iglesias Quintás",
+        "currentTeam": "Real Betis Balompié",
+        "marketValue": 25.000000,
+        "age": 30,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "Daniel Olmo Carvajal",
+        "currentTeam": "RB Leipzig",
+        "marketValue": 40.000000,
+        "age": 25,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    }, 
+    {
+        "name": "Iago Aspas Juncal",
+        "currentTeam": "Celta de Vigo",
+        "marketValue": 7.000000,
+        "age": 35,
+        "skillfulLeg": "Left",
+        "image": ""
+        
+    },
+    {
+        "name": "Álvaro Borja Morata Martín",
+        "currentTeam": "Atlético de Madrid",
+        "marketValue": 25.000000,
+        "age": 30,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    },
+    {
+        "name": "José Luis `Joselu` Mato Sanmartín",
+        "currentTeam": "RCD Espanyol",
+        "marketValue": 6.000000 ,
+        "age": 33,
+        "skillfulLeg": "Right",
+        "image": ""
+        
+    }
+]
