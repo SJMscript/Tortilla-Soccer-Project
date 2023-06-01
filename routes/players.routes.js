@@ -4,16 +4,17 @@ const Player = require("../models/Player.model");
 const Commet = require("../models/Comment.model");
 const User = require("../models/User.model");
 const isAuthenticated = require("../middlewares/isAuthenticated")
+let playersArray = require("../utils/players.json")
 
 //* GET "/players" => render list of players
-router.get("/", isAuthenticated, async (req, res, next) => {
+router.get("/list", isAuthenticated, async (req, res, next) => {
     try{
         // Find and render all characters
         const players = await Player.find();
         // Clone the returned array because MongoDB returns a special array.
-        const cloneArr = JSON.parse(JSON.stringify(players));
+        /* const cloneArr = JSON.parse(JSON.stringify(players)); */
         
-      res.json("players/list"/* , { capCharacters } */);
+      res.json("list of players found");
     } catch (err) {
       console.log(err);
     }
@@ -21,11 +22,17 @@ router.get("/", isAuthenticated, async (req, res, next) => {
 
   // GET "/players/new-player" => render form to create a new player:
 
-router.get("/new-player", isAuthenticated, /* isModerator, */ (req, res, next) => {
-    res.render("players/new-player",{
-       currentTeam: currentTeamArray,
-       skillfulLeg: skillfulLegArray
-    })
+router.get("/new-player", isAuthenticated,  async (req, res, next) => {
+
+    try{
+        res.json("Aqui visualiza form para agregar")
+
+    } catch(e){
+        next(e);
+    }
+    /* const { skillfulLeg } = playersArray */
+       /* currentTeam: currentTeamArray, */
+       /* skillfulLeg: skillfulLegArray */
 })
 
 
@@ -33,43 +40,27 @@ router.get("/new-player", isAuthenticated, /* isModerator, */ (req, res, next) =
 // Note the middleware (uploader function) as an argument for the router, using the "image" property.
 router.post("/new-player", async (req, res, next) => {
     console.log("req body post new-player", req.body)
-    const {name, species, homeworld, age, image} = req.body;
+    const {name, currentTeam, marketValue, age, image, skillfulLeg} = req.body;
     // Cloudinary will return the url on the req.file:
-    console.log(req.file);
+    /* console.log(req.file); */
     // Create a handler for the case when the image is not passed:
-
+    
     //* Server validation:
     // Check the fields are not empty (or that req.file is undefined):
     if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image ) {
         // If any field is empty, render the same page but with an error:
-        res.render("characters/new", {
-            name,
-            age,
-            currentTeam,
-            marketValue,
-            skillfulLeg,
-            image,
-            errorMessage: "All the fields are required"
-        })
+        res.status(400).json({errorMesage: "All fields are mandatory"})
         // We also need to stop the route:
         return;
     }
 
     // Asynchronous validations:
     try {
-        let lowercaseName = name.toLowerCase();
+        /* let lowercaseName = name.toLowerCase(); */
         // Check if the player´s name already exists:
         const foundPlayer = await Player.findOne({name: lowercaseName})
         if (foundPlayer !== null) {
-            res.render("players/new-player", {
-                name,
-                age,
-                currentTeam,
-                marketValue,
-                skillfulLeg,
-                image,
-                errorMessage: "This Character already exists"
-            })
+            res.status(400).json({errorMesage: "Player already exists"})
             return;
         }
     } catch (error) {

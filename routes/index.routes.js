@@ -6,10 +6,10 @@ router.get("/", (req, res, next) => {
 
 router.use("/auth", require("./auth.routes.js"))
 
-// require our auth routes files:
+/* // require our auth routes files:
 const authRouter = require("./auth.routes.js")
-// and use them:
-router.use("/auth", authRouter)
+ and use them:
+router.use("/auth", authRouter) */
 
 // require our characters routes files:
 const playersRouter = require("./players.routes.js")
