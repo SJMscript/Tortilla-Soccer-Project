@@ -28,7 +28,7 @@ const playerSchema = new Schema(
     },
     imageUrl : String,
     creator:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"     
     }
     

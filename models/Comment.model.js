@@ -5,7 +5,7 @@ const commentSchema = new Schema(
 
  {
     creator: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     },
     content: {
@@ -14,7 +14,7 @@ const commentSchema = new Schema(
         trim: true
     },
     player: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Player"
     }
 }

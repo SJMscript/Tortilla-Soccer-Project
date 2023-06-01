@@ -4,7 +4,7 @@ const top11Schema = new Schema(
 
  {
     creator: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User"
     },
     position: {
@@ -14,7 +14,7 @@ const top11Schema = new Schema(
         enum: ["goalkeeper", "defense", "midfielder", "forward"]
     },
     player: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Player"
     }
 
