@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const Player = require("../models/Player.model");
-const Commet = require("../models/Comment.model");
+const Comment = require("../models/Comment.model");
 const User = require("../models/User.model");
 const isAuthenticated = require("../middlewares/isAuthenticated")
 let playersArray = require("../utils/players.json")
@@ -11,10 +11,8 @@ router.get("/list", isAuthenticated, async (req, res, next) => {
     try{
         // Find and render all characters
         const players = await Player.find();
-        // Clone the returned array because MongoDB returns a special array.
-        /* const cloneArr = JSON.parse(JSON.stringify(players)); */
-        
-      res.json("list of players found");
+        console.log(players)
+      res.json(players);
     } catch (err) {
       console.log(err);
     }
@@ -30,9 +28,7 @@ router.get("/new-player", isAuthenticated,  async (req, res, next) => {
     } catch(e){
         next(e);
     }
-    /* const { skillfulLeg } = playersArray */
-       /* currentTeam: currentTeamArray, */
-       /* skillfulLeg: skillfulLegArray */
+
 })
 
 
@@ -41,9 +37,7 @@ router.get("/new-player", isAuthenticated,  async (req, res, next) => {
 router.post("/new-player", async (req, res, next) => {
     console.log("req body post new-player", req.body)
     const {name, currentTeam, marketValue, age, image, skillfulLeg} = req.body;
-    // Cloudinary will return the url on the req.file:
-    /* console.log(req.file); */
-    // Create a handler for the case when the image is not passed:
+
     
     //* Server validation:
     // Check the fields are not empty (or that req.file is undefined):
@@ -58,34 +52,27 @@ router.post("/new-player", async (req, res, next) => {
     try {
         /* let lowercaseName = name.toLowerCase(); */
         // Check if the player´s name already exists:
-        const foundPlayer = await Player.findOne({name: lowercaseName})
+        const foundPlayer = await Player.findOne()
         if (foundPlayer !== null) {
             res.status(400).json({errorMesage: "Player already exists"})
             return;
         }
-    } catch (error) {
-        next(error)
-    }
 
-    //* create a new character
-    Player.create({
-        name,
-        age,
+       
+        
+        //* create a new character
+        Player.create({
+            name,
+            age,
         currentTeam,
         marketValue,
         skillfulLeg,
         image,
-        // For the image we will add the path of what cloudinary returns:
-        /* image: req.file.path,
-        creator: req.session.user._id */
-    })
-    .then(()=>{
-        // If successfully created, we will redirect to the list of characters:
-        res.redirect("/players")
-    })
-    .catch((error)=>{
-        next(error)
-    })
+        })
+        res.json("Player created successfully")
+        } catch (error) {
+            next(error)
+        }
 })
 
 

@@ -11,7 +11,7 @@ const playerSchema = new Schema(
     currentTeam: {
         type: String,
         required: true,
-        // enum: ["Real Madrid", "Barcelona", "Valencia"]
+         enum: ["Real Madrid", "Barcelona", "Valencia", "Chelsea FC"]
     },
     marketValue: {
         type: Number,
@@ -24,7 +24,7 @@ const playerSchema = new Schema(
     skillfulLeg: {
         type: String,
         required: true,
-        enum: ["right", "left"]
+        enum: ["Right", "Left"]
     },
     imageUrl : String,
     creator:{

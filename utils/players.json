@@ -1,28 +1,28 @@
 [
     {
         "name": "Kepa Arrizabalaga Revuelta",
-        "currentTeam": "",
-        "marketValue": "",
-        "age": "",
-        "skillfulLeg": "",
+        "currentTeam": "Chelsea FC",
+        "marketValue": 15.000000,
+        "age": 28,
+        "skillfulLeg": "Right",
         "image": ""
         
     },
     {
         "name": "David Raya Martin",
-        "currentTeam": "",
-        "marketValue": "",
-        "age": "",
-        "skillfulLeg": "",
+        "currentTeam": "Brentford FC",
+        "marketValue": 25.000000,
+        "age": 27,
+        "skillfulLeg": "Right",
         "image": ""
         
     },
     {
         "name": "Robert Lynch Sánchez",
-        "currentTeam": "",
-        "marketValue": "",
-        "age": "",
-        "skillfulLeg": "",
+        "currentTeam": "Brighton & Hove Albion",
+        "marketValue": 32.000000,
+        "age": 25,
+        "skillfulLeg": "Right",
         "image": ""
         
     },
