@@ -15,8 +15,6 @@ router.get("/profile", isAuthenticated, async (req, res, next) => {
         next(error)
     }
 
-
-
 })
 
 
