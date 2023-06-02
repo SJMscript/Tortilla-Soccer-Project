@@ -153,16 +153,15 @@ router.post("/:playerId/details", async (req, res, next) => {
 })
 
 // POST "players/:commentId" => Get info from comment id, delete it and render character's page without it:
-router.delete("/:commentId", (req, res, next) => {
+router.delete("/:commentId", async (req, res, next) => {
     // console.log(req.params.commentId)
-    Comment.findByIdAndDelete(req.params.commentId)
-    .then((singleComment) => {
-        console.log(singleComment.character)
-        res.redirect(`/characters/${singleComment.character}/details`)
-    })
-    .catch((err) => {
-        next(err)
-    })
+    try{
+      await Comment.findByIdAndDelete(req.params.commentId)
+      res.json("Comment deleted"/* `/characters/${singleComment.character}/details` */)
+
+    }catch(err){
+      next(err);
+    }
 })
 
 
