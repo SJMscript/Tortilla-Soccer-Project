@@ -111,13 +111,16 @@ router.put("/:playerId/edit-player", async (req, res, next) => {
 
 })
 
-//* GET "/player/:playerId/details" => Render specific player by ID: 
+//* GET "/players/:playerId/details" => Render specific player by ID: 
 router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
+
+  
+
     try {
       // Find the character that matches the id sent by the params:
       const singlePlayer = await Player.findById(req.params.playerId);
 
-      const payload = {
+/*       const payload = {
         //! Poner roles (info) PREGUNTAR A JORGE
     }
 
@@ -125,8 +128,8 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
         payload,
         process.env.TOKEN_SECRET,
         { algorithm: "HS256", expiresIn: "1d"}
-    )
-        console.log(authToken)
+    ) */
+        //console.log(authToken)
 
       console.log(req.params.playerId)
       res.json( {singlePlayer: singlePlayer} )
@@ -184,16 +187,17 @@ router.delete("/:playerId/delete", async (req, res, next) => {
 router.post("/:playerId/like", isAuthenticated, async (req, res, next) => {
   try {
     // añade un usuario al array like de books y checkea que no este duplicado
+    const playerId = req.params.playerId;
     const userId = req.payload._id
-    const playersLike = await Player.findByIdAndUpdate(
-      req.params.playerId,
-      { $addToSet: { likedPlayers: userId } },
+    const playersLike = await User.findByIdAndUpdate(
+      userId,
+      { $push: { likedPlayers: playerId } },
       { new: true }
     );
     console.log("params", req.params.playerId)
    
     res.json(
-      req.params.playerId
+      playersLike
     );
   } catch (error) {
     next(error);
