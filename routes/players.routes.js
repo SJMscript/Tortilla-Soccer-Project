@@ -49,10 +49,11 @@ router.post("/new-player", async (req, res, next) => {
     /* let lowercaseName = name.toLowerCase(); */
     // Check if the player´s name already exists:
     const foundPlayer = await Player.findOne();
-    if (!foundPlayer) {
+    //todo CHEQUEAR POR QUÉ NO ANDA CON ERROR 400
+   /*  if (!foundPlayer) {
       res.status(400).json({ errorMesage: "Player already exists" });
       return;
-    }
+    } */
 
     //* create a new character
     Player.create({
