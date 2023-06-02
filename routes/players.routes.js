@@ -49,7 +49,7 @@ router.post("/new-player", async (req, res, next) => {
     /* let lowercaseName = name.toLowerCase(); */
     // Check if the player´s name already exists:
     const foundPlayer = await Player.findOne();
-    if (foundPlayer !== null) {
+    if (!foundPlayer) {
       res.status(400).json({ errorMesage: "Player already exists" });
       return;
     }
@@ -134,27 +134,26 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
     }
   });
 
-  // POST "/characters/:charId/details" => Get info from comment text area and render the page with new comment:
-router.post("/:charId/details", (req, res, next) => {
-    // console.log(req.params.charId)
-    // console.log(req.body.comment);
-    // Create new comment with req.session.user._id as creator, req.body.comment as content and req.params.charId as character:
-    Comment.create({
-        creator: req.session.user._id,
-        content: req.body.comment,
-        character: req.params.charId
-    })
-    .then(() => {
-        //console.log("Comment created.")
-        res.redirect(`/characters/${req.params.charId}/details`)
-    })
-    .catch((err) => {
-        next(err)
-    })
+  // POST "/players/:charId/details" => Get info from comment text area and render the page with new comment:
+router.post("/:playerId/details", async (req, res, next) => {
+    // Create new comment with req.payload._id as creator, req.body.comment as content and req.params.playerId as character:
+    try{
+      /* const userId = req.payload._id */
+      const userParamsId = req.params.playerId
+      await Comment.create({
+          /* creator: userId, */
+          creator1: userParamsId,
+          content: req.body.content,
+          character: req.params.playerId
+      })
+      res.json("Comentario creado"/* `/players/${req.params.playerId}/details` */)
+    }catch(err){
+      next(err);
+    }
 })
 
-// POST "characters/:commentId" => Get info from comment id, delete it and render character's page without it:
-router.post("/:commentId", (req, res, next) => {
+// POST "players/:commentId" => Get info from comment id, delete it and render character's page without it:
+router.delete("/:commentId", (req, res, next) => {
     // console.log(req.params.commentId)
     Comment.findByIdAndDelete(req.params.commentId)
     .then((singleComment) => {
@@ -168,10 +167,11 @@ router.post("/:commentId", (req, res, next) => {
 
 
 //* DELETE "players/:playerId/delete" => delete a player by its Id
-router.delete("/:playerId", async (req, res, next) => {
+router.delete("/:playerId/delete", async (req, res, next) => {
+  const { playerId } = req.params
     try {
       // Let's find the player by its Id and delete it:
-      await Player.findByIdAndDelete(req.params.playerId);
+      await Player.findByIdAndDelete(playerId);
       res.json("Player deleted!");
     } catch (err) {
       next(err);
@@ -179,8 +179,5 @@ router.delete("/:playerId", async (req, res, next) => {
   });
   
   
-
-module.exports = router;
-
 
 module.exports = router;

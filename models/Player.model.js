@@ -11,7 +11,7 @@ const playerSchema = new Schema(
     currentTeam: {
         type: String,
         required: true,
-         enum: ["Real Madrid", "Barcelona", "Valencia", "Chelsea FC"]
+/*          enum: ["Real Madrid", "Barcelona", "Valencia", "Chelsea FC"] */
     },
     marketValue: {
         type: Number,
