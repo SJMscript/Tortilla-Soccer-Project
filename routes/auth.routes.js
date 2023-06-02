@@ -27,12 +27,25 @@ router.post("/signup", async (req, res, next) => {
         return; //todo probar luego
         
     }
+
+            // Password validation
+            const regexPassword =
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+            if (regexPassword.test(password) === false) {
+            res.status(400).json({errorMessage:
+            "Password must be at least 8 characters long and contain at least one number and one letter (valid characters are A-Z, a-z, 0-9)",
+            });
+            return;
+            }             
+
+
+
             //* encrypt password
             const salt = await bcrypt.genSalt(10)
             const hashPassword = await bcrypt.hash(password, salt)
             console.log(hashPassword)
 
-            await User.create({username: username, email: email, password: hashPassword})
+            await User.create({username: username, email: email, password: hashPassword, imageUrl: imageUrl})
 
             res.json("User created successfully")
 

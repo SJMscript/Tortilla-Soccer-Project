@@ -166,19 +166,6 @@ router.post("/:commentId", (req, res, next) => {
     })
 })
 
-// POST "players/:playerId/delete" => Delete specific player by its Id:
-router.post("/:playerId/delete", (req, res, next) => {
-    // console.log(req.params);
-    // Let's find the character by its Id and delete it:
-    Player.findByIdAndDelete(req.params.playerId)
-    .then(() => {
-        // console.log("User deleted!")
-        res.redirect("/characters")
-    })
-    .catch((err) => {
-        next(err)
-    })
-})
 
 //* DELETE "players/:playerId/delete" => delete a player by its Id
 router.delete("/:playerId", async (req, res, next) => {
@@ -192,5 +179,8 @@ router.delete("/:playerId", async (req, res, next) => {
   });
   
   
+
+module.exports = router;
+
 
 module.exports = router;

@@ -16,4 +16,7 @@ const playersRouter = require("./players.routes.js")
 // and use them:
 router.use("/players", playersRouter)
 
+const userRouter = require("./user.routes.js")
+router.use("/user", userRouter)
+
 module.exports = router; 

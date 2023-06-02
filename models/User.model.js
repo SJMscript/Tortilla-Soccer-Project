@@ -21,16 +21,19 @@ const userSchema = new Schema(
           type: String,
           required: true
       },
-      imageUrl: String,
+      imageUrl: {
+        String,
+        // default: "images/default.jpg"
+    },
       role: {
           type: String,
           enum: ["user", "moderator"],
           default: "user"
       },
-      /* likedPlayers: [{
-          type: mongoose.Schema.Types.ObjectId,
+       likedPlayers: [{
+          type: Schema.Types.ObjectId,
           ref: "Player"
-      }] */
+      }] 
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
