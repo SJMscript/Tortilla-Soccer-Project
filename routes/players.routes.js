@@ -179,9 +179,26 @@ router.delete("/:playerId/delete", async (req, res, next) => {
       next(err);
     }
   });
-  
 
+  //POST "/:playerId/like" => recoge los datos del me gusta para añadirlo a la array de like de User
+router.post("/:playerId/like", isAuthenticated, async (req, res, next) => {
+  try {
+    // añade un usuario al array like de books y checkea que no este duplicado
+    const userId = req.payload._id
+    const playersLike = await Player.findByIdAndUpdate(
+      req.params.playerId,
+      { $addToSet: { likedPlayers: userId } },
+      { new: true }
+    );
+    console.log("params", req.params.playerId)
+   
+    res.json(
+      req.params.playerId
+    );
+  } catch (error) {
+    next(error);
+  }
+});
 
-  
 
 module.exports = router;
