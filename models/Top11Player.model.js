@@ -1,12 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const top11Schema = new Schema(
+const top11PlayerSchema = new Schema(
 
  {
-    creator: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    },
+     creator: {
+         type: Schema.Types.ObjectId,
+         ref: "User"
+     },
     position: {
         type: String,
         required: true,
@@ -21,6 +21,6 @@ const top11Schema = new Schema(
 }
 );
 
-const Top11 = model("Top11", top11Schema);
+const Top11Player = model("Top11Player", top11PlayerSchema);
 
-module.exports = Top11;
+module.exports = Top11Player;

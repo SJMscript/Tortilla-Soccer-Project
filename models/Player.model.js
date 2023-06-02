@@ -26,6 +26,12 @@ const playerSchema = new Schema(
         required: true,
         enum: ["Right", "Left"]
     },
+    playerPosition: {
+        type: String,
+        required: true,
+        trim: true,
+        enum: ["goalkeeper", "defense", "midfielder", "forward"]
+    },
     imageUrl : String,
     creator:{
         type: Schema.Types.ObjectId,

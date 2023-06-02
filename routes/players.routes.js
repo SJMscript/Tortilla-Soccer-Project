@@ -33,11 +33,11 @@ router.get("/new-player", isAuthenticated, async (req, res, next) => {
 // Note the middleware (uploader function) as an argument for the router, using the "image" property.
 router.post("/new-player", async (req, res, next) => {
   console.log("req body post new-player", req.body);
-  const { name, currentTeam, marketValue, age, image, skillfulLeg } = req.body;
+  const { name, currentTeam, marketValue, age, image, skillfulLeg, playerPosition } = req.body;
 
   //* Server validation:
   // Check the fields are not empty (or that req.file is undefined):
-  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image) {
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image || !playerPosition) {
     // If any field is empty, render the same page but with an error:
     res.status(400).json({ errorMesage: "All fields are mandatory" });
     // We also need to stop the route:
@@ -61,6 +61,7 @@ router.post("/new-player", async (req, res, next) => {
       currentTeam,
       marketValue,
       skillfulLeg,
+      playerPosition,
       image,
     });
     res.json("Player created successfully");
@@ -83,9 +84,9 @@ router.get("/:playerId/edit-player", async (req, res, next) => {
 
 // PUT "/players/:playerId/edit-player" => update player details by its ID:
 router.put("/:playerId/edit-player", async (req, res, next) => {
-  const { name, currentTeam, marketValue, age, skillfulLeg, image } = req.body;
+  const { name, currentTeam, marketValue, age, skillfulLeg, image, playerPosition } = req.body;
     const { playerId } = req.params
-  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image) {
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image || !playerPosition) {
     res.status(400).json({ errorMesage: "All fields are mandatory" });
     return;
   }
@@ -97,6 +98,7 @@ router.put("/:playerId/edit-player", async (req, res, next) => {
         currentTeam,
         marketValue,
         skillfulLeg,
+        playerPosition,
         image
     })
     console.log("player id", playerId)
@@ -177,6 +179,8 @@ router.delete("/:playerId/delete", async (req, res, next) => {
     }
   });
   
+
+
   
 
 module.exports = router;
