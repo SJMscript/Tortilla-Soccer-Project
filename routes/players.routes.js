@@ -191,7 +191,7 @@ router.post("/:playerId/like", isAuthenticated, async (req, res, next) => {
     const userId = req.payload._id
     const playersLike = await User.findByIdAndUpdate(
       userId,
-      { $push: { likedPlayers: playerId } },
+      { $addToSet: { likedPlayers: playerId } },
       { new: true }
     );
     console.log("params", req.params.playerId)
