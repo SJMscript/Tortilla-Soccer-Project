@@ -22,27 +22,6 @@ router.get("/createTop11", async (req, res, next) => {
 
 })
 
-// // POST "/createTop11"
-// router.post("/createTop11", async (req, res, next) => {
-
-//     const { player, position } = req.body
-
-//     try {
-    
-//     // const seeAllPlayers = await  Player.find()
-
-//     const chooseYourPlayer = await Top11Player.create({
-//         player: player,
-//         position: position
-//     }) 
-        
-//         res.json(chooseYourPlayer)
-
-//     } catch (error) {
-//         next(error);
-//     }
-
-// })
 
 // POST "/createTop11"
 router.post("/createTop11", async (req, res, next) => {

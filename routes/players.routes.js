@@ -204,5 +204,22 @@ router.post("/:playerId/like", isAuthenticated, async (req, res, next) => {
   }
 });
 
+//POST "/:playerId/unLike" 
+router.post("/:playerId/unLike", isAuthenticated, async (req, res, next) => {
+  try {
+    
+    const playerId = req.params.playerId;
+    const userId = req.payload._id
+    const playersUnLike = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { likedPlayers: playerId } },
+      { new: true }
+    );
+      res.json(playersUnLike)
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 module.exports = router;
