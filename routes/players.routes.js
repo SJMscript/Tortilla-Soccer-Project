@@ -186,7 +186,7 @@ router.delete("/:playerId/delete", async (req, res, next) => {
   //POST "/:playerId/like" => recoge los datos del me gusta para añadirlo a la array de like de User
 router.post("/:playerId/like", isAuthenticated, async (req, res, next) => {
   try {
-    // añade un usuario al array like de books y checkea que no este duplicado
+    
     const playerId = req.params.playerId;
     const userId = req.payload._id
     const playersLike = await User.findByIdAndUpdate(

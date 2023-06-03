@@ -28,7 +28,7 @@ const userSchema = new Schema(
       role: {
           type: String,
           enum: ["user", "moderator"],
-          default: "user"
+          default: "User"
       },
        likedPlayers: [{
           type: Schema.Types.ObjectId,
