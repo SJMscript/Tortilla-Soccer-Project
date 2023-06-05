@@ -34,7 +34,7 @@ router.get("/new-player", isAuthenticated, async (req, res, next) => {
 
 // POST "/players/new-player" => create a new player
 // Note the middleware (uploader function) as an argument for the router, using the "image" property.
-router.post("/new-player", uploader.single("image"), async (req, res, next) => {
+router.post("/new-player", isAuthenticated, async (req, res, next) => {
   console.log("req body post new-player", req.body);
   const { name, currentTeam, marketValue, age, imageUrl, skillfulLeg, playerPosition } = req.body;
 
@@ -49,17 +49,17 @@ router.post("/new-player", uploader.single("image"), async (req, res, next) => {
 
   // Asynchronous validations:
   try {
-    /* let lowercaseName = name.toLowerCase(); */
+     //let lowercaseName = name.toLowerCase(); 
     // Check if the player´s name already exists:
     const foundPlayer = await Player.findOne();
     //todo CHEQUEAR POR QUÉ NO ANDA CON ERROR 400
-   /*  if (!foundPlayer) {
+     if (!foundPlayer) {
       res.status(400).json({ errorMesage: "Player already exists" });
       return;
-    } */
+    } 
 
     //* create a new character
-    Player.create({
+    const patata = await Player.create({
       name,
       age,
       currentTeam,
@@ -67,9 +67,12 @@ router.post("/new-player", uploader.single("image"), async (req, res, next) => {
       skillfulLeg,
       playerPosition,
       imageUrl,
+      creator: req.payload._id
     });
+    console.log(patata);
     res.json("Player created successfully");
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
@@ -135,7 +138,7 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
         //console.log(authToken)
 
       console.log(req.params.playerId)
-      res.json( {singlePlayer: singlePlayer} )
+      res.json( singlePlayer )
 
 
     } catch (err) {
