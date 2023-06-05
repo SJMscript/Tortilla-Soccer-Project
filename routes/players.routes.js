@@ -34,9 +34,12 @@ router.get("/new-player", isAuthenticated, async (req, res, next) => {
 
 // POST "/players/new-player" => create a new player
 // Note the middleware (uploader function) as an argument for the router, using the "image" property.
-router.post("/new-player", isAuthenticated, async (req, res, next) => {
+router.post("/new-player", isAuthenticated, uploader.single("imageUrl"), async (req, res, next) => {
   console.log("req body post new-player", req.body);
-  const { name, currentTeam, marketValue, age, imageUrl, skillfulLeg, playerPosition } = req.body;
+  const { name, currentTeam, marketValue, age, skillfulLeg, imageUrl, playerPosition } = req.body;
+  // const { imageUrl } = req.file
+  console.log(req.file, "hola")
+
 
   //* Server validation:
   // Check the fields are not empty (or that req.file is undefined):
@@ -52,7 +55,6 @@ router.post("/new-player", isAuthenticated, async (req, res, next) => {
      //let lowercaseName = name.toLowerCase(); 
     // Check if the player´s name already exists:
     const foundPlayer = await Player.findOne();
-    //todo CHEQUEAR POR QUÉ NO ANDA CON ERROR 400
      if (!foundPlayer) {
       res.status(400).json({ errorMesage: "Player already exists" });
       return;
