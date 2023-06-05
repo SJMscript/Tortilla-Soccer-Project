@@ -3,6 +3,9 @@ const router = require("express").Router();
 const Player = require("../models/Player.model");
 const Comment = require("../models/Comment.model");
 const User = require("../models/User.model");
+
+const uploader = require("../middlewares/uploader");
+
 const isAuthenticated = require("../middlewares/isAuthenticated");
 let playersArray = require("../utils/players.json");
 const jwt = require("jsonwebtoken")
@@ -31,13 +34,13 @@ router.get("/new-player", isAuthenticated, async (req, res, next) => {
 
 // POST "/players/new-player" => create a new player
 // Note the middleware (uploader function) as an argument for the router, using the "image" property.
-router.post("/new-player", async (req, res, next) => {
+router.post("/new-player", uploader.single("image"), async (req, res, next) => {
   console.log("req body post new-player", req.body);
-  const { name, currentTeam, marketValue, age, image, skillfulLeg, playerPosition } = req.body;
+  const { name, currentTeam, marketValue, age, imageUrl, skillfulLeg, playerPosition } = req.body;
 
   //* Server validation:
   // Check the fields are not empty (or that req.file is undefined):
-  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image || !playerPosition) {
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !imageUrl || !playerPosition) {
     // If any field is empty, render the same page but with an error:
     res.status(400).json({ errorMesage: "All fields are mandatory" });
     // We also need to stop the route:
@@ -63,7 +66,7 @@ router.post("/new-player", async (req, res, next) => {
       marketValue,
       skillfulLeg,
       playerPosition,
-      image,
+      imageUrl,
     });
     res.json("Player created successfully");
   } catch (error) {

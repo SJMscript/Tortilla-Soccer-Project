@@ -28,12 +28,16 @@ const userSchema = new Schema(
       role: {
           type: String,
           enum: ["user", "moderator"],
-          default: "User"
+          default: "user"
       },
        likedPlayers: [{
           type: Schema.Types.ObjectId,
           ref: "Player"
-      }] 
+      }],
+      top11: [{
+          type: Schema.Types.ObjectId,
+          ref: "Player"
+      }], 
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
