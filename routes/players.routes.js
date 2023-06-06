@@ -149,17 +149,18 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
   });
 
   // POST "/players/:playerId/details" => Get info from comment text area and render the page with new comment:
-router.post("/:playerId/details", async (req, res, next) => {
+router.post("/:playerId/details",isAuthenticated, async (req, res, next) => {
+  console.log("Qué trae?",req.body, req.params.playerId)
     // Create new comment with req.payload._id as creator, req.body.comment as content and req.params.playerId as character:
     try{
-      /* const userId = req.payload._id */
-      const userParamsId = req.params.playerId
-      await Comment.create({
-          /* creator: userId, */
-          creator1: userParamsId,
-          content: req.body.content,
-          player: req.params.playerId
+       const userId = req.payload.id 
+       const playerParamsId = req.params.playerId
+       await Comment.create({
+          creator: userId, 
+          content: req.body.comment,
+          player: playerParamsId
       })
+
       res.json("Comentario creado"/* `/players/${req.params.playerId}/details` */)
     }catch(err){
       next(err);
