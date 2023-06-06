@@ -1,0 +1,66 @@
+[
+    {
+        "name": "Estadio Santiago Bernabéu",
+        "ubicacion": "Madrid",
+        "capacidad": 81044,
+        "link": "https://es.wikipedia.org/wiki/Estadio_Santiago_Bernab%C3%A9u",
+        "image": "https://tierradelsur.net/wp-content/uploads/2022/01/mad-santiagobernabeu-01.jpg"
+    },
+    {
+        "name": "Estadio de la Cartuja",
+        "ubicacion": "Sevilla",
+        "capacidad": 57619,
+        "link": "https://es.wikipedia.org/wiki/Estadio_de_La_Cartuja",
+        "image": "https://www.estadiolacartuja.es/wp-content/uploads/2022/02/01-scaled.jpg"
+    },
+    {
+        "name": "Estadio Martinez Valero",
+        "ubicacion": "Elche",
+        "capacidad": 31388,
+        "link": "https://es.wikipedia.org/wiki/Estadio_Mart%C3%ADnez_Valero",
+        "image": "https://alicanteplaza.es/public/Image/2021/9/1024x800_ff77a13b0b21115913a--reas-estadio-10_NoticiaAmpliada.jpg"
+    },
+    {
+        "name": "Estadio la Romareda",
+        "ubicacion": "Zaragoza",
+        "capacidad": 33608,
+        "link": "https://es.wikipedia.org/wiki/Estadio_de_La_Romareda",
+        "image": "https://images.ecestaticos.com/UR364fidjj0HI3_x4qR9XsclRj0=/0x0:1100x730/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F410%2Fa1a%2F8a2%2F410a1a8a2169cefb207ac922f5b3017e.jpg"
+    },
+    {
+        "name": "Estadio la Rosaleda",
+        "ubicacion": "Málaga",
+        "capacidad": 30044,
+        "link": "https://es.wikipedia.org/wiki/Estadio_La_Rosaleda",
+        "image": "https://s1.ppllstatics.com/diariosur/www/multimedia/202109/07/media/cortadas/LaRosaleda-Panoramica-170621-k46G-U1504532244151tB-1248x770@Diario%20Sur.jpeg"
+    },
+    {
+        "name": "Estadio Benito Villamarin",
+        "ubicacion": "Sevilla",
+        "capacidad": 60721,
+        "link": "https://es.wikipedia.org/wiki/Estadio_Benito_Villamar%C3%ADn",
+        "image": "https://www.estadiodeportivo.com/imagenes/500dff11-6bf3-4216-8e45-822e51c12978_1200x680.jpeg"
+    },
+    {
+        "name": "Estadio de Riazor",
+        "ubicacion": "La coruña",
+        "capacidad": 32490,
+        "link": "https://es.wikipedia.org/wiki/Estadio_de_Riazor",
+        "image": "https://files.proyectoclubes.com/deportivo/201904/8e16b1c21115142405header_riazor_b.jpg"
+    },
+    {
+        "name": "RCDE Stadium",
+        "ubicacion": "Barcelona",
+        "capacidad": 40000,
+        "link": "https://es.wikipedia.org/wiki/RCDE_Stadium",
+        "image": "https://www.rcdespanyol.com/assets/images/sections/club/facilities/instalaciones-rcdestadium.png"
+    },
+    {
+        "name": "Estadio Cívitas Nuevo Vivero",
+        "ubicacion": "Badajoz",
+        "capacidad": 14898,
+        "link": "https://es.wikipedia.org/wiki/Estadio_Nuevo_Vivero",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Nuevo_vivero.jpg/640px-Nuevo_vivero.jpg"
+    }
+    
+]
