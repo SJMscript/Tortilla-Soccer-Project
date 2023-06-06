@@ -22,4 +22,7 @@ router.use("/user", userRouter)
 const top11Router = require("./top11.routes.js")
 router.use("/top11", top11Router)
 
+const uploadRoutes = require("./upload.routes");
+router.use("/upload", uploadRoutes);
+
 module.exports = router; 
