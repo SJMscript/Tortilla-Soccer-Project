@@ -25,4 +25,7 @@ router.use("/top11", top11Router)
 const uploadRoutes = require("./upload.routes");
 router.use("/upload", uploadRoutes);
 
+/* const infoRouter = require("./info.routes.js")
+router.use("/info", infoRouter) */
+
 module.exports = router; 

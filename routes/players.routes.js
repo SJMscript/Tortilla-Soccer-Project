@@ -148,7 +148,7 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
     }
   });
 
-  // POST "/players/:charId/details" => Get info from comment text area and render the page with new comment:
+  // POST "/players/:playerId/details" => Get info from comment text area and render the page with new comment:
 router.post("/:playerId/details", async (req, res, next) => {
     // Create new comment with req.payload._id as creator, req.body.comment as content and req.params.playerId as character:
     try{
@@ -158,7 +158,7 @@ router.post("/:playerId/details", async (req, res, next) => {
           /* creator: userId, */
           creator1: userParamsId,
           content: req.body.content,
-          character: req.params.playerId
+          player: req.params.playerId
       })
       res.json("Comentario creado"/* `/players/${req.params.playerId}/details` */)
     }catch(err){

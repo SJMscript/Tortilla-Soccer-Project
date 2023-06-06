@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs");
 
 // GET "user/profile" 
-router.get("/profile", isAuthenticated, async (req, res, next) => {
+/* router.get("/profile", isAuthenticated, async (req, res, next) => {
 
     const userId = req.payload._id
 
@@ -16,7 +16,18 @@ router.get("/profile", isAuthenticated, async (req, res, next) => {
         next(error)
     }
 
-})
+}) */
+
+router.get("/profile", isAuthenticated, async (req, res, next) => {
+    const userId = req.payload._id;
+  
+    try {
+      const userProfile = await User.findById(userId).populate("likedPlayers");
+      res.json(userProfile);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 
 // PUT "user/profile/edit" 
