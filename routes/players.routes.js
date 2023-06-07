@@ -179,6 +179,20 @@ router.delete("/:commentId", async (req, res, next) => {
     }
 })
 
+// GET "/players/:playerId/comments" => Get comments for a specific player
+router.get("/:playerId/comments", isAuthenticated, async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ player: req.params.playerId })
+      .populate("creator", "username") // Populate the creator field with the username
+      .select("content creator")
+      .exec();
+
+    res.json(comments);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 //* DELETE "players/:playerId/delete" => delete a player by its Id
 router.delete("/:playerId/delete", async (req, res, next) => {
