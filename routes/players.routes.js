@@ -128,17 +128,6 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
       // Find the character that matches the id sent by the params:
       const singlePlayer = await Player.findById(req.params.playerId);
 
-/*       const payload = {
-        //! Poner roles (info) PREGUNTAR A JORGE
-    }
-
-      const authToken = jwt.sign(
-        payload,
-        process.env.TOKEN_SECRET,
-        { algorithm: "HS256", expiresIn: "1d"}
-    ) */
-        //console.log(authToken)
-
       console.log(req.params.playerId)
       res.json( singlePlayer )
 
