@@ -15,7 +15,7 @@ router.get("/createTop11", async (req, res, next) => {
 });
 
 
-// POST "/createTop11"
+// POST "/top11/createTop11"
 router.post("/createTop11", async (req, res, next) => {
     const { player, position } = req.body;
 
@@ -73,11 +73,14 @@ router.post("/createTop11", async (req, res, next) => {
         });
 
         // Actualizar el array de top11 del usuario
+        //console.log(req.payload, "que trae payload")
         const user = await User.findOneAndUpdate(
             { _id: req.payload._id },
             { $addToSet: { top11: chooseYourPlayer._id } },
             { new: true }
         );
+
+        
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });

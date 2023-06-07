@@ -38,10 +38,10 @@ router.post("/new-player", isAuthenticated, uploader.single("imageUrl"), async (
   console.log("req body post new-player", req.body);
   const { name, currentTeam, marketValue, age, skillfulLeg, imageUrl, playerPosition } = req.body;
   // const { imageUrl } = req.file
-  console.log(req.file, "hola")
+  //console.log(req.file, "hola")
 
 
-  //* Server validation:
+  // Server validation:
   // Check the fields are not empty (or that req.file is undefined):
   if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !imageUrl || !playerPosition) {
     // If any field is empty, render the same page but with an error:
@@ -54,13 +54,13 @@ router.post("/new-player", isAuthenticated, uploader.single("imageUrl"), async (
   try {
      //let lowercaseName = name.toLowerCase(); 
     // Check if the player´s name already exists:
-    const foundPlayer = await Player.findOne();
-     if (!foundPlayer) {
+    const foundPlayer = await Player.findOne({name: name});
+     if (foundPlayer) {
       res.status(400).json({ errorMesage: "Player already exists" });
       return;
     } 
 
-    //* create a new character
+    // create a new player
     const patata = await Player.create({
       name,
       age,
