@@ -3,11 +3,17 @@ const router = require("express").Router();
 const Player = require("../models/Player.model");
 const Top11Player = require("../models/Top11Player.model");
 const User = require("../models/User.model");
+const isAuthenticated = require("../middlewares/isAuthenticated");
 
 // GET "/createTop11"
-router.get("/createTop11", async (req, res, next) => {
+router.get("/createTop11", isAuthenticated, async (req, res, next) => {
+
+    const userId = req.payload._id
+
     try {
-        const allPlayers = await Player.find();
+        const allPlayers = await Top11Player.find({
+          creator: userId
+        }).populate("player");
         res.json(allPlayers);
     } catch (error) {
         next(error);
@@ -16,7 +22,7 @@ router.get("/createTop11", async (req, res, next) => {
 
 
 // POST "/top11/createTop11"
-router.post("/createTop11", async (req, res, next) => {
+router.post("/createTop11", isAuthenticated, async (req, res, next) => {
     const { player, position } = req.body;
 
     try {
@@ -70,6 +76,7 @@ router.post("/createTop11", async (req, res, next) => {
         const chooseYourPlayer = await Top11Player.create({
             player: player,
             position: position,
+            creator: req.payload._id
         });
 
         // Actualizar el array de top11 del usuario
