@@ -3,9 +3,9 @@ const router = require("express").Router();
 const Player = require("../models/Player.model");
 const Comment = require("../models/Comment.model");
 const User = require("../models/User.model");
-
 const uploader = require("../middlewares/uploader");
 
+const {isModerator} = require("../middlewares/isModerator")
 const isAuthenticated = require("../middlewares/isAuthenticated");
 let playersArray = require("../utils/players.json");
 const jwt = require("jsonwebtoken")
@@ -159,11 +159,12 @@ router.post("/:playerId/details",isAuthenticated, async (req, res, next) => {
 
 
 // DELETE "/comments/:commentId" => Eliminar un comentario por su ID
-router.delete("/comments/:commentId", isAuthenticated, async (req, res, next) => {
+router.delete("/comments/:commentId", isAuthenticated, isModerator, async (req, res, next) => {
   try {
     const commentId = req.params.commentId;
     const userId = req.payload._id;
-
+    const userRole = req.payload.role
+    console.log(userRole, "este es el userRole")
     // Buscar el comentario por su ID
     const comment = await Comment.findById(commentId);
 
@@ -172,7 +173,7 @@ router.delete("/comments/:commentId", isAuthenticated, async (req, res, next) =>
       return res.status(404).json({ error: "Comment not found" });
     }
 
-    if (comment.creator.toString() !== userId) {
+    if (comment.creator.toString() !== userId && userRole !== "moderator" ) {
       return res.status(403).json({ error: "You are not authorized to delete this comment" });
     }
 

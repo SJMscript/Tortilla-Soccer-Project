@@ -80,6 +80,7 @@ router.post("/login", async (req, res, next) => {
         const payload = {
             _id: foundUser._id,
             email: foundUser.email,
+            role: foundUser.role
             //! Poner roles (info)
         }
 
@@ -89,14 +90,10 @@ router.post("/login", async (req, res, next) => {
             { algorithm: "HS256", expiresIn: "1d"}
         )
 
-
-
         res.json({authToken: authToken})
     }catch (e){
         next(e);
     }
-
-
 
 })
 
