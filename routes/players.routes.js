@@ -140,13 +140,14 @@ router.get("/:playerId/details", isAuthenticated, async (req, res, next) => {
   // POST "/players/:playerId/details" => Get info from comment text area and render the page with new comment:
 router.post("/:playerId/details",isAuthenticated, async (req, res, next) => {
   console.log("Qué trae?",req.body, req.params.playerId)
+  console.log(req.payload, "PAYLOAD A CHECKEAR")
     // Create new comment with req.payload._id as creator, req.body.comment as content and req.params.playerId as character:
     try{
-       const userId = req.payload.id 
+       const userId = req.payload._id 
        const playerParamsId = req.params.playerId
        await Comment.create({
           creator: userId, 
-          content: req.body.comment,
+          content: req.body.content,
           player: playerParamsId
       })
 
@@ -157,26 +158,53 @@ router.post("/:playerId/details",isAuthenticated, async (req, res, next) => {
 })
 
 // POST "players/:commentId" => Get info from comment id, delete it and render character's page without it:
-router.delete("/:commentId", async (req, res, next) => {
-    // console.log(req.params.commentId)
+/* router.delete("/:commentId", async (req, res, next) => {
+     console.log(req.params.commentId)
     try{
       await Comment.findByIdAndDelete(req.params.commentId)
-      res.json("Comment deleted"/* `/characters/${singleComment.character}/details` */)
+      res.json("Comment deleted" `/characters/${singleComment.character}/details` )
 
     }catch(err){
       next(err);
     }
-})
+}) */
+
+// POST "players/:commentId" => Get info from comment id, delete it and render character's page without it:
+router.delete("/:commentId", isAuthenticated, async (req, res, next) => {
+  try {
+    const commentId = req.params.commentId;
+    const userId = req.payload._id;
+
+    // Buscar el comentario por su ID
+    const comment = await Comment.findById(commentId);
+
+    // Verificar si el comentario existe y si el creador del comentario coincide con el usuario autenticado
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found" });
+    }
+
+    if (comment.creator.toString() !== userId) {
+      return res.status(403).json({ error: "You are not authorized to delete this comment" });
+    }
+
+    // Eliminar el comentario
+    await Comment.findByIdAndDelete(commentId);
+    res.json("Comment deleted");
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 // GET "/players/:playerId/comments" => Get comments for a specific player
 router.get("/:playerId/comments", isAuthenticated, async (req, res, next) => {
   try {
-    const comments = await Comment.find({ player: req.params.playerId })
+    const userId = req.payload._id 
+    const comments = await Comment.find({ player: req.params.playerId }) //!Chequear esta lógica también
       .populate("creator", "username") // Populate the creator field with the username
       .select("content creator")
-      .exec();
 
-    res.json(comments);
+    res.json(comments); //! tengo que pasar userId Como creator?
   } catch (err) {
     next(err);
   }
