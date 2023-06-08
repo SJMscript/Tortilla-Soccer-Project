@@ -93,9 +93,9 @@ router.get("/:playerId/edit-player", async (req, res, next) => {
 
 // PUT "/players/:playerId/edit-player" => update player details by its ID:
 router.put("/:playerId/edit-player", async (req, res, next) => {
-  const { name, currentTeam, marketValue, age, skillfulLeg, image, playerPosition } = req.body;
+  const { name, currentTeam, marketValue, age, skillfulLeg, imageUrl, playerPosition } = req.body;
     const { playerId } = req.params
-  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image || !playerPosition) {
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !imageUrl || !playerPosition) {
     res.status(400).json({ errorMesage: "All fields are mandatory" });
     return;
   }
@@ -108,7 +108,7 @@ router.put("/:playerId/edit-player", async (req, res, next) => {
         marketValue,
         skillfulLeg,
         playerPosition,
-        image
+        imageUrl
     })
     console.log("player id", playerId)
     res.json("Player updated")
@@ -166,21 +166,21 @@ router.delete("/:commentId", async (req, res, next) => {
     }catch(err){
       next(err);
     }
-})
-
-// GET "/players/:playerId/comments" => Get comments for a specific player
-router.get("/:playerId/comments", isAuthenticated, async (req, res, next) => {
-  try {
-    const comments = await Comment.find({ player: req.params.playerId })
-      .populate("creator", "username") // Populate the creator field with the username
-      .select("content creator")
-      .exec();
-
-    res.json(comments);
-  } catch (err) {
-    next(err);
-  }
-});
+  })
+  
+  // GET "/players/:playerId/comments" => Get comments for a specific player
+  router.get("/:playerId/comments", isAuthenticated, async (req, res, next) => {
+    try {
+      const comments = await Comment.find({ player: req.params.playerId })
+        .populate("creator", "username") // Populate the creator field with the username
+        .select("content creator")
+        .exec();
+  
+      res.json(comments);
+    } catch (err) {
+      next(err);
+    }
+  });
 
 
 //* DELETE "players/:playerId/delete" => delete a player by its Id
