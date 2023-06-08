@@ -93,9 +93,9 @@ router.get("/:playerId/edit-player", async (req, res, next) => {
 
 // PUT "/players/:playerId/edit-player" => update player details by its ID:
 router.put("/:playerId/edit-player", async (req, res, next) => {
-  const { name, currentTeam, marketValue, age, skillfulLeg, image, playerPosition } = req.body;
+  const { name, currentTeam, marketValue, age, skillfulLeg, imageUrl, playerPosition } = req.body;
     const { playerId } = req.params
-  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !image || !playerPosition) {
+  if (!name || !currentTeam || !marketValue || !age || !skillfulLeg || !imageUrl || !playerPosition) {
     res.status(400).json({ errorMesage: "All fields are mandatory" });
     return;
   }
@@ -108,7 +108,7 @@ router.put("/:playerId/edit-player", async (req, res, next) => {
         marketValue,
         skillfulLeg,
         playerPosition,
-        image
+        imageUrl
     })
     console.log("player id", playerId)
     res.json("Player updated")
@@ -157,20 +157,9 @@ router.post("/:playerId/details",isAuthenticated, async (req, res, next) => {
     }
 })
 
-// POST "players/:commentId" => Get info from comment id, delete it and render character's page without it:
-/* router.delete("/:commentId", async (req, res, next) => {
-     console.log(req.params.commentId)
-    try{
-      await Comment.findByIdAndDelete(req.params.commentId)
-      res.json("Comment deleted" `/characters/${singleComment.character}/details` )
 
-    }catch(err){
-      next(err);
-    }
-}) */
-
-// POST "players/:commentId" => Get info from comment id, delete it and render character's page without it:
-router.delete("/:commentId", isAuthenticated, async (req, res, next) => {
+// DELETE "/comments/:commentId" => Eliminar un comentario por su ID
+router.delete("/comments/:commentId", isAuthenticated, async (req, res, next) => {
   try {
     const commentId = req.params.commentId;
     const userId = req.payload._id;
@@ -194,6 +183,7 @@ router.delete("/:commentId", isAuthenticated, async (req, res, next) => {
     next(err);
   }
 });
+
 
 
 // GET "/players/:playerId/comments" => Get comments for a specific player
